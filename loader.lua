@@ -43,7 +43,8 @@ end
 if visible then
     local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/deividcomsono/Obsidian/main/Library.lua"))()
     local win = lib:CreateWindow({
-        Title = "Riddance Key System",
+        Title = "Riddance",
+		Footer = "",
         ToggleKeybind = Enum.KeyCode.G,
         SetMobileButtonSide = "Left",
         DisableSearch = true,

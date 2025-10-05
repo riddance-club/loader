@@ -6,15 +6,26 @@ api.script_id = "-" -- unsure if im gonna make a new script yet
 local function validateKey(key)
     local status = api.check_key(key)
     if status.code == "KEY_VALID" then
-		    return true, "Key is valid!"
+		local seconds_left = status.data.auth_expire - os.time()
+        local days = math.floor(seconds_left / 86400)
+        local hours = math.floor((seconds_left % 86400) / 3600)
+        local minutes = math.floor((seconds_left % 3600) / 60)
+        local seconds = seconds_left % 60
+        local time_left = string.format("%dd %dh %dm %ds", days, hours, minutes, seconds)
+        return true, "Key is valid! Time left: " .. time_left
     elseif status.code == "KEY_HWID_LOCKED" then
         return false, "Key is linked to a different device (HWID). Please reset it using Luarmor's Discord bot."
     elseif status.code == "KEY_INCORRECT" or status.code == "KEY_INVALID" then
-		    return false, "Key is incorrect or deleted."
+		return false, "Key is incorrect or deleted."
     else
         return false, "Failed to check key."
     end
     return false, "Unknown error, should never happen."
+end
+
+local function load(key)
+	script_key = key
+    api.load_script()
 end
 
 if not isfolder("Riddance") then
@@ -25,8 +36,7 @@ if isfile("Riddance/key.txt") then
     local file = readfile("Riddance/key.txt")
     if validateKey(file) then
         visible = false
-        script_key = file
-        api.load_script();
+        load(file)
     end
 end
 
@@ -88,9 +98,8 @@ if visible then
         if valid then
             writefile("Riddance/key.txt", key)
             lib:Notify(msg, 5)
-			      lib:Unload()
-            script_key = key
-            api.load_script();
+			lib:Unload()
+            load(key)
         else
             lib:Notify(msg, 5)
         end

@@ -51,7 +51,7 @@ if visible then
         Theme = "Default",
         ToggleUIKeybind = (game.GameId == 6331902150 and "H") or "G",
         DisableRayfieldPrompts = false,
-        DisableBuildWarnings = false,
+        DisableBuildWarnings = false
     })
 
     local function notify(content)
@@ -63,7 +63,9 @@ if visible then
         })
     end
 
-    local tab = win:CreateTab("Key", "key")
+    local tab = win:CreateTab("Key System", "key")
+
+    tab:CreateSection("Key System")
 
     tab:CreateButton({
         Name = "Linkvertise",
@@ -89,6 +91,8 @@ if visible then
         end
     })
 
+    tab:CreateSection("Discord")
+
     tab:CreateButton({
         Name = "Join Discord",
         Callback = function()
@@ -96,6 +100,8 @@ if visible then
             notify(copymsg)
         end
     })
+
+    tab:CreateSection("Verification")
 
     local keybox = tab:CreateInput({
         Name = "Enter Key",

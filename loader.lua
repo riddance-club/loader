@@ -1,12 +1,12 @@
 local visible = true
 local copymsg = "Copied to clipboard!"
 local api = loadstring(game:HttpGet("https://sdkapi-public.luarmor.net/library.lua"))()
-api.script_id = "-" -- unsure if im gonna make a new script yet
+api.script_id = "-"
 
 local function validateKey(key)
     local status = api.check_key(key)
     if status.code == "KEY_VALID" then
-		local seconds_left = status.data.auth_expire - os.time()
+        local seconds_left = status.data.auth_expire - os.time()
         local days = math.floor(seconds_left / 86400)
         local hours = math.floor((seconds_left % 86400) / 3600)
         local minutes = math.floor((seconds_left % 3600) / 60)
@@ -16,7 +16,7 @@ local function validateKey(key)
     elseif status.code == "KEY_HWID_LOCKED" then
         return false, "Key is linked to a different device (HWID). Please reset it using Luarmor's Discord bot."
     elseif status.code == "KEY_INCORRECT" or status.code == "KEY_INVALID" then
-		return false, "Key is incorrect or deleted."
+        return false, "Key is incorrect or deleted."
     else
         return false, "Failed to check key."
     end
@@ -24,7 +24,7 @@ local function validateKey(key)
 end
 
 local function load(key)
-	script_key = key
+    script_key = key
     api.load_script()
 end
 
@@ -41,68 +41,83 @@ if isfile("Riddance/key.txt") then
 end
 
 if visible then
-    local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/deividcomsono/Obsidian/main/Library.lua"))()
+    local lib = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
     local win = lib:CreateWindow({
-        Title = "Riddance",
-		Footer = "",
-        ToggleKeybind = Enum.KeyCode.G,
-        SetMobileButtonSide = "Left",
-        DisableSearch = true,
-        ShowCustomCursor = false,
-        Size = UDim2.fromOffset(400, 300),
-        Center = true,
-        AutoShow = true
+        Name = "Riddance",
+        LoadingTitle = "Riddance",
+        ShowText = "Riddance",
+        Theme = "Default",
+        ToggleUIKeybind = (game.GameId == 6331902150 and "H") or "G",
+        DisableRayfieldPrompts = false,
+        DisableBuildWarnings = false,
     })
 
-    local tab = win:AddKeyTab("Key", "key")
+    local function notify(content)
+        lib:Notify({
+            Title = "",
+            Content = content,
+            Duration = 5
+        })
+    end
 
-    tab:AddLabel({
-        Text = "Riddance",
-        DoesWrap = true,
-        Size = 20,
-    })
+    local tab = win:CreateTab("Key", "key")
 
-    tab:AddButton({
-        Text = "Linkvertise",
-        Func = function()
+    tab:CreateSection("Riddance")
+
+    tab:CreateButton({
+        Name = "Linkvertise",
+        Callback = function()
             setclipboard("https://ads.luarmor.net/get_key?for=Riddance_Premium_Linkvertise-IbUHRQbdLbnF")
-            lib:Notify(copymsg, 5)
+            notify(copymsg)
         end
     })
 
-    tab:AddButton({
-        Text = "Lootlabs",
-        Func = function()
+    tab:CreateButton({
+        Name = "Lootlabs",
+        Callback = function()
             setclipboard("https://ads.luarmor.net/get_key?for=Riddance_Premium_Lootlabs-uIsDXzXErYSY")
-            lib:Notify(copymsg, 5)
+            notify(copymsg)
         end
     })
 
-    tab:AddButton({
-        Text = "Work.ink",
-        Func = function()
+    tab:CreateButton({
+        Name = "Work.ink",
+        Callback = function()
             setclipboard("https://ads.luarmor.net/get_key?for=Riddance_Premium_Workink-vUfZJgriPsXO")
-            lib:Notify(copymsg, 5)
+            notify(copymsg)
         end
     })
 
-    tab:AddButton({
-        Text = "Join Discord",
-        Func = function()
+    tab:CreateButton({
+        Name = "Join Discord",
+        Callback = function()
             setclipboard("https://discord.gg/hbHEv8QvE9")
-            lib:Notify(copymsg, 5)
+            notify(copymsg)
         end
     })
 
-    tab:AddKeyBox(function(_, key)
-        local valid, msg = validateKey(key)
-        if valid then
-            writefile("Riddance/key.txt", key)
-            lib:Notify(msg, 5)
-			lib:Unload()
-            load(key)
-        else
-            lib:Notify(msg, 5)
+    local keybox = tab:CreateInput({
+        Name = "Enter Key",
+        CurrentValue = "",
+        PlaceholderText = "Paste your key here",
+        RemoveTextAfterFocusLost = false,
+        Callback = function() end
+    })
+
+    tab:CreateButton({
+        Name = "Verify Key",
+        Callback = function()
+            local key = keybox.CurrentValue
+            local valid, msg = validateKey(key)
+            if valid then
+                writefile("Riddance/key.txt", key)
+                notify(msg)
+                lib:Destroy()
+                load(key)
+            else
+                notify(msg)
+            end
         end
-    end)
+    })
 end

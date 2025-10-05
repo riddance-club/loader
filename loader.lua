@@ -44,9 +44,9 @@ if visible then
     local lib = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
     local win = lib:CreateWindow({
-        Name = "Riddance",
-        LoadingTitle = "Riddance",
-        ShowText = "Riddance",
+        Name = "Riddance Key System",
+        LoadingTitle = "Riddance Key System",
+        ShowText = "Riddance Key System",
         Theme = "Default",
         ToggleUIKeybind = (game.GameId == 6331902150 and "H") or "G",
         DisableRayfieldPrompts = false,
@@ -63,8 +63,6 @@ if visible then
     end
 
     local tab = win:CreateTab("Key", "key")
-
-    tab:CreateSection("Riddance")
 
     tab:CreateButton({
         Name = "Linkvertise",

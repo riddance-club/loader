@@ -54,10 +54,10 @@ if visible then
         AutoShow = true
     })
 
-    local tab = win:AddKeyTab("Key", "key"),
+    local tab = win:AddKeyTab("Key", "key")
 
     tab:AddLabel({
-        Text = "Riddance Key System",
+        Text = "Riddance",
         DoesWrap = true,
         Size = 20,
     })

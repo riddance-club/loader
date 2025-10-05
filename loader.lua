@@ -55,9 +55,10 @@ if visible then
 
     local function notify(content)
         lib:Notify({
-            Title = "",
+            Title = "Notification",
             Content = content,
-            Duration = 5
+            Duration = 5,
+            Image = "key"
         })
     end
 

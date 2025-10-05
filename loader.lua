@@ -41,7 +41,7 @@ if isfile("Riddance/key.txt") then
 end
 
 if visible then
-    local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/deividcomsono/lib/main/Library.lua"))()
+    local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/deividcomsono/Obsidian/main/Library.lua"))()
     local win = lib:CreateWindow({
         Title = "Riddance Key System",
         ToggleKeybind = Enum.KeyCode.G,

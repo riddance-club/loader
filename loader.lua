@@ -47,6 +47,7 @@ if visible then
         Name = "Riddance Key System",
         LoadingTitle = "Riddance Key System",
         ShowText = "Riddance Key System",
+        LoadingSubtitle = "",
         Theme = "Default",
         ToggleUIKeybind = (game.GameId == 6331902150 and "H") or "G",
         DisableRayfieldPrompts = false,

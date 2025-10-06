@@ -1,7 +1,7 @@
 local visible = true
 local copymsg = "Copied to clipboard!"
 local api = loadstring(game:HttpGet("https://sdkapi-public.luarmor.net/library.lua"))()
-api.script_id = "-"
+api.script_id = "2450de615decd6aa6f8930ece4879d3b"
 
 local function validateKey(key)
     local status = api.check_key(key)

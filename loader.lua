@@ -14,7 +14,7 @@ local function validateKey(key)
         local time_left = string.format("%dd %dh %dm %ds", days, hours, minutes, seconds)
         return true, "Key is valid! Time left: " .. time_left
     elseif status.code == "KEY_HWID_LOCKED" then
-        return false, "Key is linked to a different device (HWID). Please reset it using Luarmor's Discord bot."
+        return false, "Key is linked to a different device (HWID). Please reset it using our Discord's luarmor control panel."
     elseif status.code == "KEY_INCORRECT" or status.code == "KEY_INVALID" then
         return false, "Key is incorrect or deleted."
     else

@@ -24,7 +24,9 @@ local function validateKey(key)
 end
 
 local function load(key)
-    script_key = key
+    if key then
+        script_key = key
+    end
     api.load_script()
 end
 
@@ -37,6 +39,12 @@ if isfile("Riddance/key.txt") then
     if validateKey(file) then
         visible = false
         load(file)
+    end
+end
+
+if script_key then
+    if validateKey(script_key) then
+        load()
     end
 end
 

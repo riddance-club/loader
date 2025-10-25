@@ -44,6 +44,7 @@ end
 
 if script_key then
     if validateKey(script_key) then
+        visible = false
         load()
     end
 end

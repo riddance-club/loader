@@ -6,13 +6,7 @@ api.script_id = "2450de615decd6aa6f8930ece4879d3b"
 local function validateKey(key)
     local status = api.check_key(key)
     if status.code == "KEY_VALID" then
-        local seconds_left = status.data.auth_expire - os.time()
-        local days = math.floor(seconds_left / 86400)
-        local hours = math.floor((seconds_left % 86400) / 3600)
-        local minutes = math.floor((seconds_left % 3600) / 60)
-        local seconds = seconds_left % 60
-        local time_left = string.format("%dd %dh %dm %ds", days, hours, minutes, seconds)
-        return true, "Key is valid! Time left: " .. time_left
+        return true, "Key is valid!"
     elseif status.code == "KEY_HWID_LOCKED" then
         return false, "Key is linked to a different device (HWID). Please reset it using our Discord's luarmor control panel."
     elseif status.code == "KEY_INCORRECT" or status.code == "KEY_INVALID" then
